@@ -15,10 +15,10 @@ namespace Config_2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private AdminConfigService _adminService;
+        private IAdminConfigService _adminService;
         
         
-        public HomeController(ILogger<HomeController> logger, AdminConfigService adminConfigService)
+        public HomeController(ILogger<HomeController> logger, IAdminConfigService adminConfigService)
         {
             _logger = logger;
             _adminService = adminConfigService; 

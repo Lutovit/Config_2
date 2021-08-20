@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,26 +9,32 @@ namespace Config_2.Services
 {
     public class AdminConfigService:IAdminConfigService
     {
-        private readonly AdminSettings _options;
+        private AdminSettings AdminSettings;
+        private readonly IConfiguration Configuration;
 
         public AdminConfigService()
         {
             
         }
 
-        public AdminConfigService(IOptionsSnapshot<AdminSettings> options) 
+        public AdminConfigService(IConfiguration configuration) 
         {
-            _options = options.Value;        
+            Configuration = configuration;
+
+            //AdminSettings = new AdminSettings();
+
+            //Configuration.GetSection(AdminSettings.Settings).Bind(AdminSettings);
+            Configuration.GetSection(AdminSettings.Settings).Get<AdminSettings>();
         }
 
         public string adminName 
         {
-            get { return _options.adminName; }
+            get { return AdminSettings.adminName; }
         }
 
         public string adminEmail
         {
-            get { return _options.adminEmail; }
+            get { return AdminSettings.adminEmail; }
         }
 
     }
