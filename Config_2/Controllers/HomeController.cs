@@ -1,4 +1,5 @@
 ﻿using Config_2.Models;
+using Config_2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -14,20 +15,24 @@ namespace Config_2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        private readonly AdminSettings _options;
+        private AdminConfigService _adminService;
         
-        public HomeController(ILogger<HomeController> logger, IOptions<AdminSettings> options)
+        
+        public HomeController(ILogger<HomeController> logger, AdminConfigService adminConfigService)
         {
             _logger = logger;
-            _options = options.Value;
+            _adminService = adminConfigService; 
+
         }
         
 
         
         public string Index()
         {
-            string str = _options.adminEmail + "   ;   " + _options.adminName;
+            
+
+            string str = _adminService.adminEmail + "   ;   " + _adminService.adminName;
+
             return str;
         }
         
